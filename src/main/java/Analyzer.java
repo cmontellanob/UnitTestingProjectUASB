@@ -41,11 +41,17 @@ public class Analyzer {
 		List<Sentence> list = new ArrayList();
 		for (String linea : listString) {
 			int pos=linea.indexOf(" ");
-			int score = Integer.parseInt(linea.substring(0,pos));
-			if (score>=-2 && score<=2) {
-				String sentence = linea.substring(pos + 1);
-				list.add(new Sentence(score, sentence.trim()));
+			try {
+				int score = Integer.parseInt(linea.substring(0, pos));
+				if (score>=-2 && score<=2) {
+					String sentence = linea.substring(pos + 1);
+					list.add(new Sentence(score, sentence.trim()));
+				}
+			}catch (Exception e)
+			{
+			//error de conversion
 			}
+
 		}
 		return list;
 	}
@@ -55,9 +61,8 @@ public class Analyzer {
 	 */
 	public static Set<Word> allWords(List<Sentence> sentences) {
 
-		for(Sentence sentence : sentences) {
-			;
-		}
+
+		
 		return null;
 
 	}

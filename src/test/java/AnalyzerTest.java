@@ -57,6 +57,7 @@ public class AnalyzerTest {
 
 
 
+
     // metodo helper que ayuda  a crear archivo de texto a analizar
     private String FileName (List<Sentence> lista,String File) throws IOException {
         File miDir = new File(".");
