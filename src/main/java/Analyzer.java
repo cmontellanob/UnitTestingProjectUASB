@@ -14,13 +14,15 @@ public class Analyzer {
 	 * Implement this method in Part 1
 	 */
 	public static List<Sentence> readFile(String filename) {
-		List<Sentence> list = new ArrayList();
+		List<String> lineas= new ArrayList();
 		try {
 			File archivo = new File(filename);
 			FileReader fr = new FileReader(archivo);
 			BufferedReader br = new BufferedReader(fr);
 			String linea;
-
+			while((linea=br.readLine())!=null) {
+				lineas.add(linea);
+			}
 		}
 		catch(Exception e){
 			//System.out.print(e.printStackTrace());
@@ -28,13 +30,23 @@ public class Analyzer {
 		}
 		finally
 		{
-			return list;	
+			return CreateSentencesFromList(lineas);
 		}
 
 
 		
 	}
-
+	private static List<Sentence> CreateSentencesFromList(List<String> listString)
+	{
+		List<Sentence> list = new ArrayList();
+		for (String linea : listString) {
+			int pos=linea.indexOf(" ");
+			int score = Integer.parseInt(linea.substring(0,pos));
+			String sentence = linea.substring(pos+1);
+			list.add(new Sentence(score, sentence.trim()));
+		}
+		return list;
+	}
 
 	/*
 	 * Implement this method in Part 2
