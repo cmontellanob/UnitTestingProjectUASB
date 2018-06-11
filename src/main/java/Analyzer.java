@@ -1,3 +1,5 @@
+import com.sun.deploy.util.StringUtils;
+
 import java.io.BufferedReader;
 import java.io.Console;
 import java.io.File;
@@ -54,21 +56,32 @@ public class Analyzer {
 	}
 
 	/*
-	 * Implement this method in Part 2
+	 * Implemen t this method in Part 2
 	 */
 	public static Set<Word> allWords(List<Sentence> sentences) {
 		Set<Word> Palabras = new HashSet<Word>();
 		for(Sentence sentence : sentences) {
-			String TextoAnalizar=sentence.getText().replaceAll(",.","");
+			String TextoAnalizar=sentence.getText().replaceAll("[,./']","");
+			TextoAnalizar=TextoAnalizar.replaceAll("[-]","");
 			String[] palabras=TextoAnalizar.split(" ");
 			for (String palabra:palabras) {
-				if (palabra.trim()!="")
-				Palabras.add(new Word(palabra.toLowerCase()));
+				if (palabra.trim().length()>0) {
+					Palabras.add(new Word(palabra.toLowerCase().trim()));
+				}
 			}
 		}
-
+		//calcular scores
+		for(Word palabra:Palabras)
+		{
+            for(Sentence sentence : sentences) {
+                String cadena=sentence.getText().toLowerCase();
+				if (cadena.contains(palabra.getText()))
+				{
+					palabra.increaseTotal(sentence.score);
+				}
+			}
+		}
 		return Palabras;
-
 	}
 
 	/*

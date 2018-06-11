@@ -1,6 +1,8 @@
 import org.junit.Test;
-
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -78,8 +80,36 @@ public class AnalyzerTest {
 
     }
 
+    @Test public void analyzerAllWordsVerifyWord_it() throws IOException {
+        Analyzer classAnalyzerTest = new Analyzer();
+        List<Sentence> listaesperada = new ArrayList();
+        listaesperada.add(new Sentence(1, "a bilingual charmer , just like the woman who inspired it"));
+        listaesperada.add(new Sentence(0, "Like a less dizzily gorgeous companion to Mr. Wong 's In"));
+        listaesperada.add(new Sentence(-1, "As inept as big-screen remakes of The Avengers and The Wild Wild West ."));
+        listaesperada.add(new Sentence(0, "It 's everything you 'd expect -- but nothing more ."));
+        listaesperada.add(new Sentence(2, "Best indie of the year , so far ."));
+        String filename=FileName (listaesperada,"prueba5.txt");
+        List<Sentence> sentences=classAnalyzerTest.readFile(filename);
 
+        Word Palabra = new Word("it");
+        Word PalabraEncontrada=null;
 
+        Palabra.increaseTotal(1);
+        Palabra.increaseTotal(0);
+
+        Set<Word>Palabras = classAnalyzerTest.allWords(sentences);
+        for(Word palabra: Palabras) {
+            //System.out.println(palabra.getText());
+
+            if (palabra.getText().equals("it"))  {
+                PalabraEncontrada = palabra;
+            }
+        }
+        assertEquals(Palabra.getText(),PalabraEncontrada.getText());
+        assertEquals(Palabra.getTotal(),PalabraEncontrada.getTotal());
+        assertEquals(Palabra.getCount(),PalabraEncontrada.getCount());
+
+    }
 
     // metodo helper que ayuda  a crear archivo de texto a analizar
     private String FileName (List<Sentence> lista,String File) throws IOException {
