@@ -3,10 +3,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -111,6 +108,47 @@ public class AnalyzerTest {
 
     }
 
+    @Test public void analyzerCalculateScoresMethodWhenListOfWordsisEmpy() {
+        Analyzer classAnalyzerTest = new Analyzer();
+        Map<String, Double> wordsScores=new HashMap<String, Double>() ;
+        Set<Word> Palabras = new HashSet<Word>();
+
+        assertEquals(wordsScores, classAnalyzerTest.calculateScores(Palabras));
+    }
+
+    @Test public void analyzerCalculateScoresWord_it() throws IOException {
+        Analyzer classAnalyzerTest = new Analyzer();
+        List<Sentence> listaesperada = new ArrayList();
+        Map<String, Double> wordsScores=new HashMap<String, Double>() ;
+        listaesperada.add(new Sentence(1, "a bilingual charmer , just like the woman who inspired it"));
+        listaesperada.add(new Sentence(0, "Like a less dizzily gorgeous companion to Mr. Wong 's In"));
+        listaesperada.add(new Sentence(-1, "As inept as big-screen remakes of The Avengers and The Wild Wild West ."));
+        listaesperada.add(new Sentence(0, "It 's everything you 'd expect -- but nothing more ."));
+        listaesperada.add(new Sentence(2, "Best indie of the year , so far ."));
+        String filename=FileName (listaesperada,"prueba5.txt");
+        List<Sentence> sentences=classAnalyzerTest.readFile(filename);
+
+        Set<Word>Palabras = classAnalyzerTest.allWords(sentences);
+        wordsScores=classAnalyzerTest.calculateScores(Palabras);
+
+        // Imprimimos el Map con un Iterador
+        Iterator it = wordsScores.keySet().iterator();
+        double valor=0;
+        while(it.hasNext()){
+            String key = (String)it.next();
+            if (key.equals("it"))
+               valor=wordsScores.get(key);
+        }
+        Word Palabra = new Word("it");
+        Word PalabraEncontrada=null;
+
+        Palabra.increaseTotal(1);
+        Palabra.increaseTotal(0);
+
+        assertEquals(Palabra.calculateScore(),valor,0.001);
+
+    }
+
     // metodo helper que ayuda  a crear archivo de texto a analizar
     private String FileName (List<Sentence> lista,String File) throws IOException {
         File miDir = new File(".");
@@ -122,4 +160,5 @@ public class AnalyzerTest {
         bw.close ();
         return archivo;
     }
+
 }

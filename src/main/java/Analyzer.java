@@ -88,8 +88,11 @@ public class Analyzer {
 	 * Implement this method in Part 3
 	 */
 	public static Map<String, Double> calculateScores(Set<Word> words) {
-
-		return null;
+        Map<String, Double> wordscores=new HashMap<String, Double>() ;
+        for(Word palabra: words) {
+            wordscores.put(palabra.getText(), palabra.calculateScore());
+        }
+        return wordscores;
 
 	}
 
