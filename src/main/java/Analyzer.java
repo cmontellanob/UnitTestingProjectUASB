@@ -1,10 +1,12 @@
-import com.sun.deploy.util.StringUtils;
-
 import java.io.BufferedReader;
-import java.io.Console;
 import java.io.File;
 import java.io.FileReader;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 public class Analyzer {
@@ -33,7 +35,6 @@ public class Analyzer {
 		}
 
 
-		
 	}
 	private static List<Sentence> CreateSentencesFromList(List<String> listString)
 	{
@@ -63,10 +64,12 @@ public class Analyzer {
 		for(Sentence sentence : sentences) {
 			String TextoAnalizar=sentence.getText().replaceAll("[,./']","");
 			TextoAnalizar=TextoAnalizar.replaceAll("[-]","");
+
 			String[] palabras=TextoAnalizar.split(" ");
-			for (String palabra:palabras) {
+
+            for (String palabra:palabras) {
 				if (palabra.trim().length()>0) {
-					Palabras.add(new Word(palabra.toLowerCase().trim()));
+                    Palabras.add(new Word(palabra.toLowerCase().trim()));
 				}
 			}
 		}
@@ -75,9 +78,13 @@ public class Analyzer {
 		{
             for(Sentence sentence : sentences) {
                 String cadena=sentence.getText().toLowerCase();
-				if (cadena.contains(palabra.getText()))
+                String[] listapalabras=cadena.split(" ");
+
+                for (String texto:listapalabras)
 				{
-					palabra.increaseTotal(sentence.score);
+				    if (texto.equals(palabra.getText()))
+                        palabra.increaseTotal(sentence.score);
+
 				}
 			}
 		}
@@ -96,4 +103,12 @@ public class Analyzer {
 
 	}
 
+    public static Word getWordOnSet(Set<Word> Words, String word) {
+        for(Word palabra: Words) {
+            if (palabra.getText().equals(word.toLowerCase()))  {
+                return palabra;
+            }
+        }
+	    return null;
+    }
 }
