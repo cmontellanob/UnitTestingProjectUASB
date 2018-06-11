@@ -42,8 +42,10 @@ public class Analyzer {
 		for (String linea : listString) {
 			int pos=linea.indexOf(" ");
 			int score = Integer.parseInt(linea.substring(0,pos));
-			String sentence = linea.substring(pos+1);
-			list.add(new Sentence(score, sentence.trim()));
+			if (score>=-2 && score<=2) {
+				String sentence = linea.substring(pos + 1);
+				list.add(new Sentence(score, sentence.trim()));
+			}
 		}
 		return list;
 	}
