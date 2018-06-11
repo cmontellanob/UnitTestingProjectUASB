@@ -20,3 +20,8 @@ Por ejemplo:
 2 I didn’t think programming in Java could be so much fun !
 -2 I would have preferred an easier assignment .
 2 I can’t think of anything more fun than learning Java !
+
+# Descripción sobre las herramientas usadas
+JUnit FRameWork,para realizar las  pruebasen JAva
+IntellicenseIdea Ide de Desarrollo
+Gradle manejo de dependencias
