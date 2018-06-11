@@ -60,21 +60,20 @@ public class AnalyzerTest {
     @Test public void analyzerAllWordsMethodCreateWordsWithListSentences() throws IOException {
         Analyzer classAnalyzerTest = new Analyzer();
         List<Sentence> listaesperada = new ArrayList();
-        listaesperada.add(new Sentence(0, "This was not as much fun as I thought it would be ."));
+        listaesperada.add(new Sentence(1, "a bilingual charmer , just like the woman who inspired it"));
         String filename=FileName (listaesperada,"prueba4.txt");
         List<Sentence> sentences=classAnalyzerTest.readFile(filename);
         Set<Word> Palabras = new HashSet<Word>();
-        Palabras.add(new Word("This"));
-        Palabras.add(new Word("was"));
-        Palabras.add(new Word("not"));
-        Palabras.add(new Word("as"));
-        Palabras.add(new Word("much"));
-        Palabras.add(new Word("fun"));
-        Palabras.add(new Word("as"));
-        Palabras.add(new Word("I"));
-        Palabras.add(new Word("thought"));
-        Palabras.add(new Word("would"));
-        Palabras.add(new Word("be"));
+        Palabras.add(new Word("a"));
+        Palabras.add(new Word("bilingual"));
+        Palabras.add(new Word("charmer"));
+        Palabras.add(new Word("just"));
+        Palabras.add(new Word("like"));
+        Palabras.add(new Word("the"));
+        Palabras.add(new Word("woman"));
+        Palabras.add(new Word("who"));
+        Palabras.add(new Word("inspired"));
+        Palabras.add(new Word("it"));
         assertEquals(Palabras,classAnalyzerTest.allWords(sentences) );
 
     }

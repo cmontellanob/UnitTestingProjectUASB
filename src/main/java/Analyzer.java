@@ -2,10 +2,7 @@ import java.io.BufferedReader;
 import java.io.Console;
 import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 public class Analyzer {
@@ -60,10 +57,17 @@ public class Analyzer {
 	 * Implement this method in Part 2
 	 */
 	public static Set<Word> allWords(List<Sentence> sentences) {
+		Set<Word> Palabras = new HashSet<Word>();
+		for(Sentence sentence : sentences) {
+			String TextoAnalizar=sentence.getText().replaceAll(",.","");
+			String[] palabras=TextoAnalizar.split(" ");
+			for (String palabra:palabras) {
+				if (palabra.trim()!="")
+				Palabras.add(new Word(palabra.toLowerCase()));
+			}
+		}
 
-
-
-		return null;
+		return Palabras;
 
 	}
 
