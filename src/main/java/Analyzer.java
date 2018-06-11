@@ -53,6 +53,9 @@ public class Analyzer {
 	 */
 	public static Set<Word> allWords(List<Sentence> sentences) {
 
+		for(Sentence sentence : sentences) {
+			;
+		}
 		return null;
 
 	}
