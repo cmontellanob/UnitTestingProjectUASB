@@ -2,7 +2,9 @@ import org.junit.Test;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -46,12 +48,34 @@ public class AnalyzerTest {
         List<Sentence> listaesperada = new ArrayList();
         listaesperada.add(new Sentence(0, "This was not as much fun as I thought it would be ."));
         listaesperada.add(new Sentence(1, "I had a lot of fun on this and learned a lot ."));
-        String filename=FileName (listaesperada,"prueba2.txt");
+        String filename=FileName (listaesperada,"prueba3.txt");
         File archivo = new File(filename);
         FileWriter fr = new FileWriter(archivo,true);
         fr.write("It would be more fun if we had more time to work on it .");
         fr.close();
         assertEquals(listaesperada, classAnalyzerTest.readFile(filename));
+
+    }
+
+    @Test public void analyzerAllWordsMethodCreateWordsWithListSentences() throws IOException {
+        Analyzer classAnalyzerTest = new Analyzer();
+        List<Sentence> listaesperada = new ArrayList();
+        listaesperada.add(new Sentence(0, "This was not as much fun as I thought it would be ."));
+        String filename=FileName (listaesperada,"prueba4.txt");
+        List<Sentence> sentences=classAnalyzerTest.readFile(filename);
+        Set<Word> Palabras = new HashSet<Word>();
+        Palabras.add(new Word("This"));
+        Palabras.add(new Word("was"));
+        Palabras.add(new Word("not"));
+        Palabras.add(new Word("as"));
+        Palabras.add(new Word("much"));
+        Palabras.add(new Word("fun"));
+        Palabras.add(new Word("as"));
+        Palabras.add(new Word("I"));
+        Palabras.add(new Word("thought"));
+        Palabras.add(new Word("would"));
+        Palabras.add(new Word("be"));
+        assertEquals(Palabras,classAnalyzerTest.allWords(sentences) );
 
     }
 

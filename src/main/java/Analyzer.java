@@ -62,7 +62,7 @@ public class Analyzer {
 	public static Set<Word> allWords(List<Sentence> sentences) {
 
 
-		
+
 		return null;
 
 	}
